@@ -1,0 +1,21 @@
+<?xml-model href="https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/os/schemas/edm.xsd"?>
+<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Alias="self" Namespace="example.org">
+    <EntityType Name="Employee">
+        <Key>
+            <PropertyRef Name="Name" />
+        </Key>
+        <Property Name="Name" Type="Edm.String" Nullable="false" />
+        <Annotation Term="Core.Description" Qualifier="X"
+            String="a full or part time employee" />
+    </EntityType>
+    <EntityType Name="ReportingLine">
+        <Key>
+            <PropertyRef Name="ReportsTo/Name" Alias="Manager" />
+            <PropertyRef Name="DirectReport/Name" Alias="Subordinate" />
+        </Key>
+        <NavigationProperty Name="ReportsTo" Type="self.Employee">
+            <Annotation Term="Core.Description" String="The &quot;manager&quot; " />
+        </NavigationProperty>
+        <NavigationProperty Name="DirectReport" Type="self.Employee" />
+    </EntityType>
+</Schema>
