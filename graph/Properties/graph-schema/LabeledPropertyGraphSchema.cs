@@ -1,4 +1,6 @@
 
+using System.Threading.Tasks.Dataflow;
+
 namespace Csdl.Graph;
 
 public class LabeledPropertyGraphSchema : IEnumerable
@@ -20,60 +22,75 @@ public class LabeledPropertyGraphSchema : IEnumerable
 
     public void Display(TextWriter w)
     {
+        w.WriteLine("# CSDL meta model");
+        w.WriteLine();
+
         foreach (var (name, def) in dictionary)
         {
-            w.WriteLine("model element {0} {{", name);
-
-            foreach (var (i, p) in def.Properties.WidthIndex())
-            {
-                if (i == 0)
-                {
-                    w.WriteLine("    // properties (of primitive values)");
-                }
-
-                w.WriteLine("    {0}: {1};", p.Name, p.Type.Name());
-            }
-
-            foreach (var (i, assoc) in def.Associations.WidthIndex())
-            {
-                if (i == 0)
-                {
-                    w.WriteLine();
-                    w.WriteLine("    // references (associations) to other nodes");
-                }
-                switch (assoc)
-                {
-                    case Reference reference:
-                        w.WriteLine("    {0}: Reference<{1}>;", assoc.Name, string.Join("|", reference.TypeAlternatives));
-                        break;
-
-                    case PathReference path:
-                        w.WriteLine("    {0}: PathReference<{1}>;", assoc.Name, string.Join(",", path.Types));
-                        break;
-                }
-            }
-
-            // var multi = def.Contained?.Length > 1;
-            foreach (var (i, c) in def.Elements.WidthIndex())
-            {
-                if (i == 0)
-                {
-                    w.WriteLine();
-                    w.WriteLine("    // child (contained) nodes");
-                }
-
-                w.WriteLine("    {0}: Collection<{1}>;",
-                    c.Name,
-                    string.Join("|", c.TypeAlternatives));
-            }
-
-            w.WriteLine("}");
+            w.WriteLine("## *{0}* model element", name);
             w.WriteLine();
-        }
 
-        // w.WriteLine(new string('\n', 10));
-        // w.WriteLine("type Box<T> = any");
-        // w.WriteLine("type Collection<T> = any");
+            if (def.Properties?.Length > 0)
+            {
+                {
+                    foreach (var (i, p) in def.Properties.WidthIndex())
+                    {
+                        if (i == 0)
+                        {
+                            w.WriteLine("### {0} properties of primitive values", name);
+                            w.WriteLine();
+                        }
+
+                        w.WriteLine("- {0}: {1} {2}", p.Name, p.Type.Name(), p.IsRequired ? "required" : "optional");
+                    }
+                }
+                w.WriteLine();
+            }
+
+            if (def.Associations?.Length > 0)
+            {
+                foreach (var (i, assoc) in def.Associations.WidthIndex())
+                {
+                    if (i == 0)
+                    {
+                        w.WriteLine("### {0} references to other model elements (nodes)", name);
+                        w.WriteLine();
+                    }
+                    switch (assoc)
+                    {
+                        case Reference reference:
+                            w.WriteLine("- {0}: Reference to {1}", assoc.Name, reference.TypeAlternatives.Join(", ", " or "));
+                            break;
+
+                        case PathReference path:
+                            w.WriteLine("- {0}: Path following {1}", assoc.Name, string.Join("; ", path.Types));
+                            break;
+                    }
+                }
+                w.WriteLine();
+            }
+
+            if (def.Elements?.Length > 0)
+            {
+                foreach (var (i, child) in def.Elements.WidthIndex())
+                {
+                    if (i == 0)
+                    {
+                        w.WriteLine("### {0} contained model elements", name);
+                        w.WriteLine();
+                        w.WriteLine("    {1}", child.Name, child.TypeAlternatives.Join(", ", " or "));
+                        w.WriteLine();
+                    }
+                    else
+                    {
+                        w.WriteLine("### Contained model elements under {0}", child.Name);
+                        w.WriteLine();
+                        w.WriteLine("{0}", child.TypeAlternatives.Join(", ", " or "));
+                        w.WriteLine();
+                    }
+                }
+            }
+        }
     }
 
     public override string ToString()
@@ -83,4 +100,3 @@ public class LabeledPropertyGraphSchema : IEnumerable
         return writer.ToString();
     }
 }
-

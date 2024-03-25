@@ -114,7 +114,7 @@ internal record XmlCsdlGraphBuilder(LabeledPropertyGraphSchema Schema)
         // Association[] associations = def.Associations ?? [];
         // Element[] elements = def.Elements ?? [];
 
-        var primitivesAndReferences = properties.Concat(associations.Select(r => new Property(r.Name, PropertyType.Path)));
+        var primitivesAndReferences = properties.Concat(associations.Select(r => new Property(r.Name, PropertyType.Path, true)));
         var props = (
             from p in primitivesAndReferences
             let v = xml.Attribute(p.Name)
@@ -163,12 +163,12 @@ internal record XmlCsdlGraphBuilder(LabeledPropertyGraphSchema Schema)
         foreach (var p in properties)
         {
             var attr = xml.Attribute(p.Name);
-            if (attr == null)
+            if (p.IsRequired && attr == null)
             {
                 var li = new LineInfo(filePath, xml);
                 Console.WriteLine($"missing XML attribute {p.Name} of XML element {xml.Name.LocalName} at {li} ");
             }
-            else if (!p.Type.IsValid(attr.Value))
+            else if (attr != null && !p.Type.IsValid(attr.Value))
             {
                 var li = new LineInfo(filePath, attr);
                 Console.WriteLine($"invalid XML attribute value for attribute {p.Name} of XML element {xml.Name.LocalName} at {li} property {p.Name} expecting {p.Type}");

@@ -18,9 +18,8 @@ internal class Program
     {
         var iDir = Path.GetDirectoryName(inputFile)!;
         var oDir = Path.GetDirectoryName(outputFile)!;
-        File.WriteAllText(Path.Combine(oDir, "schema.lpg"), SCHEMA.ToString());
+        File.WriteAllText(Path.Combine(oDir, "meta-model-schema.md"), SCHEMA.ToString());
 
-        // var core = Path.Combine(iDir, "core.xml");
         var graph = Graph.LoadGraph(SCHEMA, inputFile);
 
         graph.WriteTo(outputFile);
@@ -47,7 +46,7 @@ internal class Program
         },
         ["Member"] = new NodeDef
         {
-            Properties = ["Name", ("Value", PropertyType.Int)],
+            Properties = ["Name", ("Value", PropertyType.Int, true)],
         },
         ["EntityType"] = new NodeDef
         {
@@ -63,13 +62,13 @@ internal class Program
         },
         ["Property"] = new NodeDef
         {
-            Properties = ["Name", ("Nullable", PropertyType.Bool)],
+            Properties = ["Name", ("Nullable", PropertyType.Bool, false)],
             Associations = [new Reference("Type", ["ComplexType", "EnumType", "PrimitiveType"])],
             Elements = [("Annotations", ["Annotation"])],
         },
         ["NavigationProperty"] = new NodeDef
         {
-            Properties = ["Name", ("ContainsTarget", PropertyType.Bool)],
+            Properties = ["Name", ("ContainsTarget", PropertyType.Bool, false)],
             Associations = [new Reference("Type", ["EntityType"])],
             Elements = [("Annotations", ["Annotation"])],
         },
@@ -96,14 +95,19 @@ internal class Program
         },
         ["Term"] = new NodeDef
         {
-            Properties = [("Name", PropertyType.String), ("Nullable", PropertyType.Bool), ("DefaultValue", PropertyType.String), ("AppliesTo", PropertyType.String)],
+            Properties = [
+                ("Name", PropertyType.String, true),
+                ("Nullable", PropertyType.Bool, false),
+                 ("DefaultValue", PropertyType.String,false),
+                 ("AppliesTo", PropertyType.String, false)
+            ],
             Associations = [new Reference("Type", ["ComplexType", "EnumType", "PrimitiveType"]), new Reference("BaseTerm", ["Term"])],
             Elements = [("Annotations", ["Annotation"])],
         },
         // https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html#_Toc38530405
         ["Annotation"] = new NodeDef
         {
-            Properties = [("Qualifier", PropertyType.String)],
+            Properties = [("Qualifier", PropertyType.String, false)],
             Associations = [new Reference("Term", ["Term"])],
         },
     };
