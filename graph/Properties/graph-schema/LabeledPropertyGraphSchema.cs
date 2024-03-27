@@ -1,4 +1,6 @@
 
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks.Dataflow;
 
 namespace Csdl.Graph;
@@ -215,5 +217,28 @@ public partial class LabeledPropertyGraphSchema // : IEnumerable
         var writer = new StringWriter();
         Display(writer);
         return writer.ToString();
+    }
+
+    internal void JsonSerialize(FileStream stream)
+    {
+        JsonSerializer.Serialize(stream, this, SerializeOnlyLabeledPropertyGraphSchemOnlyContext.Default.LabeledPropertyGraphSchema);
+    }
+
+    internal void JsonSerialize(string path)
+    {
+        using var stream = File.Create(path);
+        JsonSerializer.Serialize(stream, this, SerializeOnlyLabeledPropertyGraphSchemOnlyContext.Default.LabeledPropertyGraphSchema);
+    }
+
+    [JsonSourceGenerationOptions(WriteIndented = true, UseStringEnumConverter = true)]
+    [JsonSerializable(typeof(LabeledPropertyGraphSchema))]
+    [JsonSerializable(typeof(NodeDef))]
+    [JsonSerializable(typeof(Element))]
+    [JsonSerializable(typeof(Property))]
+    [JsonSerializable(typeof(Association))]
+    [JsonSerializable(typeof(Reference))]
+    [JsonSerializable(typeof(PathReference))]
+    internal partial class SerializeOnlyLabeledPropertyGraphSchemOnlyContext : JsonSerializerContext
+    {
     }
 }

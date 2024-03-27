@@ -23,34 +23,17 @@ internal class Program
     private static void Run(string inputFile, string outputFile)
     {
         var schema = LabeledPropertyGraphSchema.Default;
-        var iDir = Path.GetDirectoryName(inputFile)!;
-        var oDir = Path.GetDirectoryName(outputFile)!;
-        File.WriteAllText(Path.Combine(oDir, "meta-model-schema.md"), schema.ToString());
+        var outputDir = Path.GetDirectoryName(outputFile)!;
+        File.WriteAllText(Path.Combine(outputDir, "meta-model-schema.md"), schema.ToString());
 
-        using (var stream = File.Create(Path.Combine(oDir, "meta-model-schema.json")))
-        {
-            JsonSerializer.Serialize(stream, schema, SerializeOnlyLabeledPropertyGraphSchemOnlyContext.Default.LabeledPropertyGraphSchema);
-        }
+        schema.JsonSerialize(Path.Combine(outputDir, "meta-model-schema.json"));
 
         var graph = Graph.LoadGraph(schema, inputFile);
 
         graph.WriteTo(outputFile);
     }
-
 }
 
-
-[JsonSourceGenerationOptions(WriteIndented = true, UseStringEnumConverter = true)]
-[JsonSerializable(typeof(LabeledPropertyGraphSchema))]
-[JsonSerializable(typeof(NodeDef))]
-[JsonSerializable(typeof(Element))]
-[JsonSerializable(typeof(Property))]
-[JsonSerializable(typeof(Association))]
-[JsonSerializable(typeof(Reference))]
-[JsonSerializable(typeof(PathReference))]
-internal partial class SerializeOnlyLabeledPropertyGraphSchemOnlyContext : JsonSerializerContext
-{
-}
 
 
 public class ProgramOptions
