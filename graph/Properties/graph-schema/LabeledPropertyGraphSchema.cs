@@ -7,20 +7,19 @@ namespace Csdl.Graph;
 
 public partial class LabeledPropertyGraphSchema // : IEnumerable
 {
-
     public static readonly LabeledPropertyGraphSchema Default = new()
     {
         ["Schema"] = new NodeDef
         {
             Url = "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Schema",
-            Doc = "Schemas describe the entity model exposed by an OData service.",
+            Description = "Schemas describe the entity model exposed by an OData service.",
             Properties = ["Namespace", "Alias"],
             Elements = [("Elements", ["EnumType", "EntityType", "ComplexType", "PrimitiveType", "TypeDefinition", "Term"])]
         },
         ["TypeDefinition"] = new NodeDef
         {
             Url = "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_TypeDefinition",
-            Doc = "A type definition defines a new type that is based on a primitive type, a complex type, or an enumeration type.",
+            Description = "A type definition defines a new type that is based on a primitive type, a complex type, or an enumeration type.",
             Properties = ["Name"],
             Associations = [new Reference("UnderlyingType", ["PrimitiveType"])],
             Elements = [("Elements", ["Annotation"])]
@@ -28,20 +27,20 @@ public partial class LabeledPropertyGraphSchema // : IEnumerable
         ["EnumType"] = new NodeDef
         {
             Url = "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_EnumType",
-            Doc = "An enumeration type defines a set of named values.",
+            Description = "An enumeration type defines a set of named values.",
             Properties = ["Name"],
             Elements = [("Members", ["Member"])]
         },
         ["Member"] = new NodeDef
         {
             Url = "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Member",
-            Doc = "A member defines a named value of an enumeration type.",
+            Description = "A member defines a named value of an enumeration type.",
             Properties = ["Name", ("Value", PropertyType.Int, false)],
         },
         ["EntityType"] = new NodeDef
         {
             Url = "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_EntityType",
-            Doc = "An entity type defines the structure of an entity.",
+            Description = "An entity type defines the structure of an entity.",
             Properties = ["Name"],
             Associations = [new Reference("BaseType", null, ["EntityType"])],
             Elements = [("Properties", ["Property", "NavigationProperty", "Annotation"]), ("Key", ["PropertyRef"])]
@@ -49,7 +48,7 @@ public partial class LabeledPropertyGraphSchema // : IEnumerable
         ["ComplexType"] = new NodeDef
         {
             Url = "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_ComplexType",
-            Doc = "A complex type defines a structured value.",
+            Description = "A complex type defines a structured value.",
             Properties = ["Name"],
             Associations = [new Reference("BaseType", ["ComplexType"])],
             Elements = [("Properties", ["Property", "NavigationProperty", "Annotation"])]
@@ -57,7 +56,7 @@ public partial class LabeledPropertyGraphSchema // : IEnumerable
         ["Property"] = new NodeDef
         {
             Url = "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Property",
-            Doc = "A property defines a typed value that can be part of an entity or a complex type.",
+            Description = "A property defines a typed value that can be part of an entity or a complex type.",
             Properties = ["Name", ("Nullable", PropertyType.Bool, false)],
             Associations = [new Reference("Type", ["ComplexType", "EnumType", "PrimitiveType"])],
             Elements = [("Annotations", ["Annotation"])],
@@ -65,40 +64,33 @@ public partial class LabeledPropertyGraphSchema // : IEnumerable
         ["NavigationProperty"] = new NodeDef
         {
             Url = "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_NavigationProperty",
-            Doc = "A navigation property defines a relationship between two entity types.",
+            Description = "A navigation property defines a relationship between two entity types.",
             Properties = ["Name", ("ContainsTarget", PropertyType.Bool, false)],
             Associations = [new Reference("Type", ["EntityType"])],
             Elements = [("Annotations", ["Annotation"])],
         },
-        // https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Key
         ["PropertyRef"] = new NodeDef
         {
             Url = "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Key",
-            Doc = "A property reference identifies a property that is part of the key of an entity type.",
+            Description = "A property reference identifies a property that is part of the key of an entity type.",
             Properties = ["Alias"],
             Associations = [
             // The value of Name is a path expression leading to a primitive property. The names of the properties in the path are joined together by forward slashes.
             new PathReference("Name", 1, ["NavigationProperty", "Property"])
         ],
         },
-        // https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_NavigationPropertyBinding
-        ["NavigationPropertyBinding"] = new NodeDef
-        {
-            Url = "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_NavigationPropertyBinding",
-            // The value of Path is a path expression.
-            // The value of Target is a target path.
-        },
+
         ["PrimitiveType"] = new NodeDef
         {
             Url = "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#_Toc486522885",
-            Doc = "Primitive types define the built-in data types supported by OData.",
+            Description = "Primitive types define the built-in data types supported by OData.",
             Properties = ["Name"],
             Elements = [("Annotations", ["Annotation"])],
         },
         ["Term"] = new NodeDef
         {
             Url = "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html#_Toc38530405",
-            Doc = "Terms define reusable vocabulary for annotating elements in an entity model.",
+            Description = "Terms define reusable vocabulary for annotating elements in an entity model.",
             Properties = [
                 ("Name", PropertyType.String, true),
                     ("Nullable", PropertyType.Bool, false),
@@ -112,9 +104,29 @@ public partial class LabeledPropertyGraphSchema // : IEnumerable
         ["Annotation"] = new NodeDef
         {
             Url = "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html#_Toc38530405",
-            Doc = "Annotations provide additional information about elements in an entity model.",
+            Description = "Annotations provide additional information about elements in an entity model.",
             Properties = [("Qualifier", PropertyType.String, false)],
             Associations = [new Reference("Term", ["Term"])],
+        },
+
+        ["EntitySet"] = new NodeDef
+        {
+            Url = "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_EntitySet",
+            Description = "An entity set is a container for a collection of entity instances.",
+        },
+        ["Singleton"] = new NodeDef
+        {
+            Url = "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Singleton",
+            Description = "A singleton is a container for a single entity instance.",
+        },
+        ["NavigationPropertyBinding"] = new NodeDef
+        {
+            Url = "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_NavigationPropertyBinding",
+            Description = "A navigation property binding specifies the entity set or singleton that a navigation property targets.",
+            Associations = [
+                new PathReference("Path", null, ["NavigationProperty"]),
+                new Reference("Target", ["EntitySet", "singleton", "NavigationProperty"])
+            ]
         },
     };
 
@@ -148,7 +160,7 @@ public partial class LabeledPropertyGraphSchema // : IEnumerable
     {
         w.WriteLine("## {0} model element", name);
         w.WriteLine();
-        w.WriteLine("{0} [OData CSDL XML Version 4.01]({1})", def.Doc, def.Url);
+        w.WriteLine("{0} [OData CSDL XML Version 4.01]({1})", def.Description, def.Url);
         // One or more schemas describe the entity model exposed by an OData service.
         w.WriteLine();
 
@@ -230,14 +242,12 @@ public partial class LabeledPropertyGraphSchema // : IEnumerable
         JsonSerializer.Serialize(stream, this, SerializeOnlyLabeledPropertyGraphSchemOnlyContext.Default.LabeledPropertyGraphSchema);
     }
 
-    [JsonSourceGenerationOptions(WriteIndented = true, UseStringEnumConverter = true)]
+    [JsonSourceGenerationOptions(WriteIndented = true, UseStringEnumConverter = true, DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonSerializable(typeof(LabeledPropertyGraphSchema))]
     [JsonSerializable(typeof(NodeDef))]
     [JsonSerializable(typeof(Element))]
     [JsonSerializable(typeof(Property))]
-    [JsonSerializable(typeof(Association))]
-    [JsonSerializable(typeof(Reference))]
-    [JsonSerializable(typeof(PathReference))]
+    [JsonDerivedType(typeof(Association))]
     internal partial class SerializeOnlyLabeledPropertyGraphSchemOnlyContext : JsonSerializerContext
     {
     }

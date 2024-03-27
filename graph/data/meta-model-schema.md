@@ -130,10 +130,6 @@ A property reference identifies a property that is part of the key of an entity 
 
 - Name: a Path of NavigationProperty, Property
 
-## NavigationPropertyBinding model element
-
- [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_NavigationPropertyBinding)
-
 ## PrimitiveType model element
 
 Primitive types define the built-in data types supported by OData. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#_Toc486522885)
@@ -177,4 +173,21 @@ Annotations provide additional information about elements in an entity model. [O
 ### Referenced elements of Annotation
 
 - Term: Reference to [Term](#term-model-element)
+
+## EntitySet model element
+
+An entity set is a container for a collection of entity instances. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_EntitySet)
+
+## Singleton model element
+
+A singleton is a container for a single entity instance. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Singleton)
+
+## NavigationPropertyBinding model element
+
+A navigation property binding specifies the entity set or singleton that a navigation property targets. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_NavigationPropertyBinding)
+
+### Referenced elements of NavigationPropertyBinding
+
+- Path: a Path of NavigationProperty
+- Target: Reference to [EntitySet](#entityset-model-element), [singleton](#singleton-model-element)  or  [NavigationProperty](#navigationproperty-model-element)
 

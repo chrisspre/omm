@@ -2,7 +2,7 @@
   "Definitions": {
     "Schema": {
       "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Schema",
-      "Doc": "Schemas describe the entity model exposed by an OData service.",
+      "Description": "Schemas describe the entity model exposed by an OData service.",
       "Properties": [
         {
           "Name": "Namespace",
@@ -15,7 +15,6 @@
           "IsRequired": true
         }
       ],
-      "Associations": null,
       "Elements": [
         {
           "Name": "Elements",
@@ -32,7 +31,7 @@
     },
     "TypeDefinition": {
       "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_TypeDefinition",
-      "Doc": "A type definition defines a new type that is based on a primitive type, a complex type, or an enumeration type.",
+      "Description": "A type definition defines a new type that is based on a primitive type, a complex type, or an enumeration type.",
       "Properties": [
         {
           "Name": "Name",
@@ -42,6 +41,10 @@
       ],
       "Associations": [
         {
+          "Kind": "reference",
+          "Types": [
+            "PrimitiveType"
+          ],
           "Name": "UnderlyingType"
         }
       ],
@@ -56,7 +59,7 @@
     },
     "EnumType": {
       "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_EnumType",
-      "Doc": "An enumeration type defines a set of named values.",
+      "Description": "An enumeration type defines a set of named values.",
       "Properties": [
         {
           "Name": "Name",
@@ -64,7 +67,6 @@
           "IsRequired": true
         }
       ],
-      "Associations": null,
       "Elements": [
         {
           "Name": "Members",
@@ -76,7 +78,7 @@
     },
     "Member": {
       "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Member",
-      "Doc": "A member defines a named value of an enumeration type.",
+      "Description": "A member defines a named value of an enumeration type.",
       "Properties": [
         {
           "Name": "Name",
@@ -88,13 +90,11 @@
           "Type": "Int",
           "IsRequired": false
         }
-      ],
-      "Associations": null,
-      "Elements": null
+      ]
     },
     "EntityType": {
       "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_EntityType",
-      "Doc": "An entity type defines the structure of an entity.",
+      "Description": "An entity type defines the structure of an entity.",
       "Properties": [
         {
           "Name": "Name",
@@ -104,6 +104,10 @@
       ],
       "Associations": [
         {
+          "Kind": "reference",
+          "Types": [
+            "EntityType"
+          ],
           "Name": "BaseType"
         }
       ],
@@ -126,7 +130,7 @@
     },
     "ComplexType": {
       "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_ComplexType",
-      "Doc": "A complex type defines a structured value.",
+      "Description": "A complex type defines a structured value.",
       "Properties": [
         {
           "Name": "Name",
@@ -136,6 +140,10 @@
       ],
       "Associations": [
         {
+          "Kind": "reference",
+          "Types": [
+            "ComplexType"
+          ],
           "Name": "BaseType"
         }
       ],
@@ -152,7 +160,7 @@
     },
     "Property": {
       "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Property",
-      "Doc": "A property defines a typed value that can be part of an entity or a complex type.",
+      "Description": "A property defines a typed value that can be part of an entity or a complex type.",
       "Properties": [
         {
           "Name": "Name",
@@ -167,6 +175,12 @@
       ],
       "Associations": [
         {
+          "Kind": "reference",
+          "Types": [
+            "ComplexType",
+            "EnumType",
+            "PrimitiveType"
+          ],
           "Name": "Type"
         }
       ],
@@ -181,7 +195,7 @@
     },
     "NavigationProperty": {
       "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_NavigationProperty",
-      "Doc": "A navigation property defines a relationship between two entity types.",
+      "Description": "A navigation property defines a relationship between two entity types.",
       "Properties": [
         {
           "Name": "Name",
@@ -196,6 +210,10 @@
       ],
       "Associations": [
         {
+          "Kind": "reference",
+          "Types": [
+            "EntityType"
+          ],
           "Name": "Type"
         }
       ],
@@ -210,7 +228,7 @@
     },
     "PropertyRef": {
       "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Key",
-      "Doc": "A property reference identifies a property that is part of the key of an entity type.",
+      "Description": "A property reference identifies a property that is part of the key of an entity type.",
       "Properties": [
         {
           "Name": "Alias",
@@ -220,21 +238,19 @@
       ],
       "Associations": [
         {
+          "Kind": "path",
+          "RelativeTo": 1,
+          "Types": [
+            "NavigationProperty",
+            "Property"
+          ],
           "Name": "Name"
         }
-      ],
-      "Elements": null
-    },
-    "NavigationPropertyBinding": {
-      "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_NavigationPropertyBinding",
-      "Doc": null,
-      "Properties": null,
-      "Associations": null,
-      "Elements": null
+      ]
     },
     "PrimitiveType": {
       "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#_Toc486522885",
-      "Doc": "Primitive types define the built-in data types supported by OData.",
+      "Description": "Primitive types define the built-in data types supported by OData.",
       "Properties": [
         {
           "Name": "Name",
@@ -242,7 +258,6 @@
           "IsRequired": true
         }
       ],
-      "Associations": null,
       "Elements": [
         {
           "Name": "Annotations",
@@ -254,7 +269,7 @@
     },
     "Term": {
       "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html#_Toc38530405",
-      "Doc": "Terms define reusable vocabulary for annotating elements in an entity model.",
+      "Description": "Terms define reusable vocabulary for annotating elements in an entity model.",
       "Properties": [
         {
           "Name": "Name",
@@ -279,9 +294,19 @@
       ],
       "Associations": [
         {
+          "Kind": "reference",
+          "Types": [
+            "ComplexType",
+            "EnumType",
+            "PrimitiveType"
+          ],
           "Name": "Type"
         },
         {
+          "Kind": "reference",
+          "Types": [
+            "Term"
+          ],
           "Name": "BaseTerm"
         }
       ],
@@ -296,7 +321,7 @@
     },
     "Annotation": {
       "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html#_Toc38530405",
-      "Doc": "Annotations provide additional information about elements in an entity model.",
+      "Description": "Annotations provide additional information about elements in an entity model.",
       "Properties": [
         {
           "Name": "Qualifier",
@@ -306,10 +331,43 @@
       ],
       "Associations": [
         {
+          "Kind": "reference",
+          "Types": [
+            "Term"
+          ],
           "Name": "Term"
         }
-      ],
-      "Elements": null
+      ]
+    },
+    "EntitySet": {
+      "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_EntitySet",
+      "Description": "An entity set is a container for a collection of entity instances."
+    },
+    "Singleton": {
+      "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Singleton",
+      "Description": "A singleton is a container for a single entity instance."
+    },
+    "NavigationPropertyBinding": {
+      "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_NavigationPropertyBinding",
+      "Description": "A navigation property binding specifies the entity set or singleton that a navigation property targets.",
+      "Associations": [
+        {
+          "Kind": "path",
+          "Types": [
+            "NavigationProperty"
+          ],
+          "Name": "Path"
+        },
+        {
+          "Kind": "reference",
+          "Types": [
+            "EntitySet",
+            "singleton",
+            "NavigationProperty"
+          ],
+          "Name": "Target"
+        }
+      ]
     }
   }
 }
