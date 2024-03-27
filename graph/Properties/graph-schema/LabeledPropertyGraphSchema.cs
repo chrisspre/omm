@@ -156,12 +156,17 @@ public partial class LabeledPropertyGraphSchema // : IEnumerable
         }
     }
 
-    private static void DisplayModelElement(TextWriter w, string name, NodeDef def)
+    private void DisplayModelElement(TextWriter w, string name, NodeDef def)
     {
         w.WriteLine("## {0} model element", name);
         w.WriteLine();
-        w.WriteLine("{0} [OData CSDL XML Version 4.01]({1})", def.Description, def.Url);
-        // One or more schemas describe the entity model exposed by an OData service.
+        w.WriteLine("{0} See [OData CSDL XML]({1})", def.Description, def.Url);
+        w.WriteLine();
+        var parents = Definitions
+            .Where(kvp => kvp.Value.Elements?.Any(e => e.Types.Contains(name)) ?? false)
+            .Select(kvp => $"[{kvp.Key}](#{kvp.Key.ToLower()}-model-element)")
+            .Join(", ", ", or ");
+        w.WriteLine("{0} is a child element of {1}", name, parents);
         w.WriteLine();
 
         if (def.Properties?.Length > 0)

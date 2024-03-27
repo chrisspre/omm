@@ -9,8 +9,9 @@ static class StringExtensions
     }
 
 
-    public static string Join(this IEnumerable<string> items, string separator, string lastSeparator)
+    public static string Join(this IEnumerable<string> items, string separator, string lastSeparator = null!)
     {
+        lastSeparator ??= separator;
         var list = items.ToList();
         if (list.Count == 0)
         {

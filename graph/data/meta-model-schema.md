@@ -2,7 +2,9 @@
 
 ## Schema model element
 
-Schemas describe the entity model exposed by an OData service. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Schema)
+Schemas describe the entity model exposed by an OData service. See [OData CSDL XML](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Schema)
+
+Schema is a child element of 
 
 ### Properties of `Schema`
 
@@ -15,7 +17,9 @@ Schemas describe the entity model exposed by an OData service. [OData CSDL XML V
 
 ## TypeDefinition model element
 
-A type definition defines a new type that is based on a primitive type, a complex type, or an enumeration type. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_TypeDefinition)
+A type definition defines a new type that is based on a primitive type, a complex type, or an enumeration type. See [OData CSDL XML](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_TypeDefinition)
+
+TypeDefinition is a child element of [Schema](#schema-model-element)
 
 ### Properties of `TypeDefinition`
 
@@ -31,7 +35,9 @@ A type definition defines a new type that is based on a primitive type, a comple
 
 ## EnumType model element
 
-An enumeration type defines a set of named values. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_EnumType)
+An enumeration type defines a set of named values. See [OData CSDL XML](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_EnumType)
+
+EnumType is a child element of [Schema](#schema-model-element)
 
 ### Properties of `EnumType`
 
@@ -43,7 +49,9 @@ An enumeration type defines a set of named values. [OData CSDL XML Version 4.01]
 
 ## Member model element
 
-A member defines a named value of an enumeration type. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Member)
+A member defines a named value of an enumeration type. See [OData CSDL XML](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Member)
+
+Member is a child element of [EnumType](#enumtype-model-element)
 
 ### Properties of `Member`
 
@@ -52,7 +60,9 @@ A member defines a named value of an enumeration type. [OData CSDL XML Version 4
 
 ## EntityType model element
 
-An entity type defines the structure of an entity. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_EntityType)
+An entity type defines the structure of an entity. See [OData CSDL XML](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_EntityType)
+
+EntityType is a child element of [Schema](#schema-model-element)
 
 ### Properties of `EntityType`
 
@@ -70,7 +80,9 @@ An entity type defines the structure of an entity. [OData CSDL XML Version 4.01]
 
 ## ComplexType model element
 
-A complex type defines a structured value. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_ComplexType)
+A complex type defines a structured value. See [OData CSDL XML](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_ComplexType)
+
+ComplexType is a child element of [Schema](#schema-model-element)
 
 ### Properties of `ComplexType`
 
@@ -86,7 +98,9 @@ A complex type defines a structured value. [OData CSDL XML Version 4.01](https:/
 
 ## Property model element
 
-A property defines a typed value that can be part of an entity or a complex type. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Property)
+A property defines a typed value that can be part of an entity or a complex type. See [OData CSDL XML](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Property)
+
+Property is a child element of [EntityType](#entitytype-model-element) , or  [ComplexType](#complextype-model-element)
 
 ### Properties of `Property`
 
@@ -103,7 +117,9 @@ A property defines a typed value that can be part of an entity or a complex type
 
 ## NavigationProperty model element
 
-A navigation property defines a relationship between two entity types. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_NavigationProperty)
+A navigation property defines a relationship between two entity types. See [OData CSDL XML](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_NavigationProperty)
+
+NavigationProperty is a child element of [EntityType](#entitytype-model-element) , or  [ComplexType](#complextype-model-element)
 
 ### Properties of `NavigationProperty`
 
@@ -120,7 +136,9 @@ A navigation property defines a relationship between two entity types. [OData CS
 
 ## PropertyRef model element
 
-A property reference identifies a property that is part of the key of an entity type. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Key)
+A property reference identifies a property that is part of the key of an entity type. See [OData CSDL XML](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Key)
+
+PropertyRef is a child element of [EntityType](#entitytype-model-element)
 
 ### Properties of `PropertyRef`
 
@@ -132,7 +150,9 @@ A property reference identifies a property that is part of the key of an entity 
 
 ## PrimitiveType model element
 
-Primitive types define the built-in data types supported by OData. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#_Toc486522885)
+Primitive types define the built-in data types supported by OData. See [OData CSDL XML](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#_Toc486522885)
+
+PrimitiveType is a child element of [Schema](#schema-model-element)
 
 ### Properties of `PrimitiveType`
 
@@ -144,7 +164,9 @@ Primitive types define the built-in data types supported by OData. [OData CSDL X
 
 ## Term model element
 
-Terms define reusable vocabulary for annotating elements in an entity model. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html#_Toc38530405)
+Terms define reusable vocabulary for annotating elements in an entity model. See [OData CSDL XML](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html#_Toc38530405)
+
+Term is a child element of [Schema](#schema-model-element)
 
 ### Properties of `Term`
 
@@ -164,7 +186,9 @@ Terms define reusable vocabulary for annotating elements in an entity model. [OD
 
 ## Annotation model element
 
-Annotations provide additional information about elements in an entity model. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html#_Toc38530405)
+Annotations provide additional information about elements in an entity model. See [OData CSDL XML](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html#_Toc38530405)
+
+Annotation is a child element of [TypeDefinition](#typedefinition-model-element), [EntityType](#entitytype-model-element), [ComplexType](#complextype-model-element), [Property](#property-model-element), [NavigationProperty](#navigationproperty-model-element), [PrimitiveType](#primitivetype-model-element) , or  [Term](#term-model-element)
 
 ### Properties of `Annotation`
 
@@ -176,15 +200,21 @@ Annotations provide additional information about elements in an entity model. [O
 
 ## EntitySet model element
 
-An entity set is a container for a collection of entity instances. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_EntitySet)
+An entity set is a container for a collection of entity instances. See [OData CSDL XML](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_EntitySet)
+
+EntitySet is a child element of 
 
 ## Singleton model element
 
-A singleton is a container for a single entity instance. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Singleton)
+A singleton is a container for a single entity instance. See [OData CSDL XML](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Singleton)
+
+Singleton is a child element of 
 
 ## NavigationPropertyBinding model element
 
-A navigation property binding specifies the entity set or singleton that a navigation property targets. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_NavigationPropertyBinding)
+A navigation property binding specifies the entity set or singleton that a navigation property targets. See [OData CSDL XML](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_NavigationPropertyBinding)
+
+NavigationPropertyBinding is a child element of 
 
 ### Referenced elements of NavigationPropertyBinding
 
