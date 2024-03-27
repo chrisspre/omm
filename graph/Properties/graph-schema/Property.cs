@@ -1,7 +1,7 @@
 
 namespace Csdl.Graph;
 
-public record Property(string Name, PropertyType Type, bool IsRequired)
+public partial record Property(string Name, PropertyType Type, bool IsRequired)
 {
     public static implicit operator (string Name, PropertyType Type, bool IsRequired)(Property value)
     {

@@ -14,7 +14,7 @@ public static class PropertyTypeExtensions
     {
         PropertyType.String => "string",
         PropertyType.Bool => "boolean",
-        PropertyType.Int => "number",
+        PropertyType.Int => "integer",
         _ => throw new InvalidDataException($"{type} is an unknown PropertyType"),
     };
 

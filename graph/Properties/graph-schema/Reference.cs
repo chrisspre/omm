@@ -4,14 +4,14 @@ namespace Csdl.Graph;
 /// <summary>
 /// Represents a reference in the graph schema.
 /// </summary>
-public sealed record Reference(string Name, int? RelativeTo, string[] TypeAlternatives) : Association(Name)
+public sealed partial record Reference(string Name, int? RelativeTo, string[] Types) : Association(Name)
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="Reference"/> class with the specified name and type alternatives.
     /// </summary>
     /// <param name="Name">The name of the reference.</param>
-    /// <param name="TypeAlternatives">The type alternatives for the reference.</param>
-    public Reference(string Name, string[] TypeAlternatives) : this(Name, null, TypeAlternatives) { }
+    /// <param name="Types">The type alternatives for the reference.</param>
+    public Reference(string Name, string[] Types) : this(Name, null, Types) { }
 
     /// <summary>
     /// Implicitly converts a <see cref="Reference"/> object to a tuple of name and type alternatives.
@@ -20,7 +20,7 @@ public sealed record Reference(string Name, int? RelativeTo, string[] TypeAltern
     /// <returns>A tuple containing the name and type alternatives of the reference.</returns>
     public static implicit operator (string Name, string[] Types)(Reference value)
     {
-        return (value.Name, value.TypeAlternatives);
+        return (value.Name, value.Types);
     }
 
     /// <summary>

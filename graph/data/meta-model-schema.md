@@ -1,156 +1,180 @@
 # CSDL meta model
 
-## *Schema* model element
+## Schema model element
 
-### Schema properties of primitive values
+Schemas describe the entity model exposed by an OData service. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Schema)
+
+### Properties of `Schema`
 
 - Namespace: string required
 - Alias: string required
 
-### Schema contained model elements
+### Contained elements of `Schema`
 
-    EnumType, EntityType, ComplexType, PrimitiveType, TypeDefinition  or  Term
+- [EnumType](#enumtype-model-element), [EntityType](#entitytype-model-element), [ComplexType](#complextype-model-element), [PrimitiveType](#primitivetype-model-element), [TypeDefinition](#typedefinition-model-element)  or  [Term](#term-model-element)
 
-## *TypeDefinition* model element
+## TypeDefinition model element
 
-### TypeDefinition properties of primitive values
+A type definition defines a new type that is based on a primitive type, a complex type, or an enumeration type. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_TypeDefinition)
 
-- Name: string required
-
-### TypeDefinition references to other model elements (nodes)
-
-- UnderlyingType: Reference to PrimitiveType
-
-### TypeDefinition contained model elements
-
-    Annotation
-
-## *EnumType* model element
-
-### EnumType properties of primitive values
+### Properties of `TypeDefinition`
 
 - Name: string required
 
-### EnumType contained model elements
+### Contained elements of `TypeDefinition`
 
-    Member
+- [Annotation](#annotation-model-element)
 
-## *Member* model element
+### Referenced elements of TypeDefinition
 
-### Member properties of primitive values
+- UnderlyingType: Reference to [PrimitiveType](#primitivetype-model-element)
 
-- Name: string required
-- Value: number required
+## EnumType model element
 
-## *EntityType* model element
+An enumeration type defines a set of named values. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_EnumType)
 
-### EntityType properties of primitive values
-
-- Name: string required
-
-### EntityType references to other model elements (nodes)
-
-- BaseType: Reference to EntityType
-
-### EntityType contained model elements
-
-    Property, NavigationProperty  or  Annotation
-
-### Contained model elements under Key
-
-PropertyRef
-
-## *ComplexType* model element
-
-### ComplexType properties of primitive values
+### Properties of `EnumType`
 
 - Name: string required
 
-### ComplexType references to other model elements (nodes)
+### Contained elements of `EnumType`
 
-- BaseType: Reference to ComplexType
+- [Member](#member-model-element)
 
-### ComplexType contained model elements
+## Member model element
 
-    Property, NavigationProperty  or  Annotation
+A member defines a named value of an enumeration type. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Member)
 
-## *Property* model element
+### Properties of `Member`
 
-### Property properties of primitive values
+- Name: string required
+- Value: integer optional
+
+## EntityType model element
+
+An entity type defines the structure of an entity. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_EntityType)
+
+### Properties of `EntityType`
+
+- Name: string required
+
+### Contained elements of `EntityType`
+
+- directly: [Property](#property-model-element), [NavigationProperty](#navigationproperty-model-element)  or  [Annotation](#annotation-model-element)
+
+- sub-key `Key`: [PropertyRef](#propertyref-model-element)
+
+### Referenced elements of EntityType
+
+- BaseType: Reference to [EntityType](#entitytype-model-element)
+
+## ComplexType model element
+
+A complex type defines a structured value. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_ComplexType)
+
+### Properties of `ComplexType`
+
+- Name: string required
+
+### Contained elements of `ComplexType`
+
+- [Property](#property-model-element), [NavigationProperty](#navigationproperty-model-element)  or  [Annotation](#annotation-model-element)
+
+### Referenced elements of ComplexType
+
+- BaseType: Reference to [ComplexType](#complextype-model-element)
+
+## Property model element
+
+A property defines a typed value that can be part of an entity or a complex type. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Property)
+
+### Properties of `Property`
 
 - Name: string required
 - Nullable: boolean optional
 
-### Property references to other model elements (nodes)
+### Contained elements of `Property`
 
-- Type: Reference to ComplexType, EnumType  or  PrimitiveType
+- [Annotation](#annotation-model-element)
 
-### Property contained model elements
+### Referenced elements of Property
 
-    Annotation
+- Type: Reference to [ComplexType](#complextype-model-element), [EnumType](#enumtype-model-element)  or  [PrimitiveType](#primitivetype-model-element)
 
-## *NavigationProperty* model element
+## NavigationProperty model element
 
-### NavigationProperty properties of primitive values
+A navigation property defines a relationship between two entity types. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_NavigationProperty)
+
+### Properties of `NavigationProperty`
 
 - Name: string required
 - ContainsTarget: boolean optional
 
-### NavigationProperty references to other model elements (nodes)
+### Contained elements of `NavigationProperty`
 
-- Type: Reference to EntityType
+- [Annotation](#annotation-model-element)
 
-### NavigationProperty contained model elements
+### Referenced elements of NavigationProperty
 
-    Annotation
+- Type: Reference to [EntityType](#entitytype-model-element)
 
-## *PropertyRef* model element
+## PropertyRef model element
 
-### PropertyRef properties of primitive values
+A property reference identifies a property that is part of the key of an entity type. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Key)
+
+### Properties of `PropertyRef`
 
 - Alias: string required
 
-### PropertyRef references to other model elements (nodes)
+### Referenced elements of PropertyRef
 
-- Name: Path following NavigationProperty; Property
+- Name: a Path of NavigationProperty, Property
 
-## *NavigationPropertyBinding* model element
+## NavigationPropertyBinding model element
 
-## *PrimitiveType* model element
+ [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_NavigationPropertyBinding)
 
-### PrimitiveType properties of primitive values
+## PrimitiveType model element
+
+Primitive types define the built-in data types supported by OData. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#_Toc486522885)
+
+### Properties of `PrimitiveType`
 
 - Name: string required
 
-### PrimitiveType contained model elements
+### Contained elements of `PrimitiveType`
 
-    Annotation
+- [Annotation](#annotation-model-element)
 
-## *Term* model element
+## Term model element
 
-### Term properties of primitive values
+Terms define reusable vocabulary for annotating elements in an entity model. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html#_Toc38530405)
+
+### Properties of `Term`
 
 - Name: string required
 - Nullable: boolean optional
 - DefaultValue: string optional
 - AppliesTo: string optional
 
-### Term references to other model elements (nodes)
+### Contained elements of `Term`
 
-- Type: Reference to ComplexType, EnumType  or  PrimitiveType
-- BaseTerm: Reference to Term
+- [Annotation](#annotation-model-element)
 
-### Term contained model elements
+### Referenced elements of Term
 
-    Annotation
+- Type: Reference to [ComplexType](#complextype-model-element), [EnumType](#enumtype-model-element)  or  [PrimitiveType](#primitivetype-model-element)
+- BaseTerm: Reference to [Term](#term-model-element)
 
-## *Annotation* model element
+## Annotation model element
 
-### Annotation properties of primitive values
+Annotations provide additional information about elements in an entity model. [OData CSDL XML Version 4.01](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html#_Toc38530405)
+
+### Properties of `Annotation`
 
 - Qualifier: string optional
 
-### Annotation references to other model elements (nodes)
+### Referenced elements of Annotation
 
-- Term: Reference to Term
+- Term: Reference to [Term](#term-model-element)
 

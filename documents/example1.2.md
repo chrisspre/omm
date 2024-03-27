@@ -1,4 +1,4 @@
-## /sales/Product/category@Core.Description
+# /sales/Product/category@Core.Description
 
 ```mermaid
 graph

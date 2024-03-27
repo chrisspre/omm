@@ -1,7 +1,7 @@
 
 namespace Csdl.Graph;
 
-public sealed record PathReference(string Name, int? RelativeTo, string[] Types) : Association(Name)
+public sealed partial record PathReference(string Name, int? RelativeTo, string[] Types) : Association(Name)
 {
     public static implicit operator (string Name, string[] Types)(PathReference value)
     {

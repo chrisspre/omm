@@ -1,5 +1,6 @@
 {
-    "recommendations": [
-        "bierner.markdown-mermaid"
-    ]
+  "recommendations": [
+    "bierner.markdown-mermaid",
+    "jerriepelser.copy-markdown-as-html"
+  ]
 }

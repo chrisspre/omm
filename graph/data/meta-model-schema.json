@@ -1,0 +1,315 @@
+{
+  "Definitions": {
+    "Schema": {
+      "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Schema",
+      "Doc": "Schemas describe the entity model exposed by an OData service.",
+      "Properties": [
+        {
+          "Name": "Namespace",
+          "Type": "String",
+          "IsRequired": true
+        },
+        {
+          "Name": "Alias",
+          "Type": "String",
+          "IsRequired": true
+        }
+      ],
+      "Associations": null,
+      "Elements": [
+        {
+          "Name": "Elements",
+          "Types": [
+            "EnumType",
+            "EntityType",
+            "ComplexType",
+            "PrimitiveType",
+            "TypeDefinition",
+            "Term"
+          ]
+        }
+      ]
+    },
+    "TypeDefinition": {
+      "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_TypeDefinition",
+      "Doc": "A type definition defines a new type that is based on a primitive type, a complex type, or an enumeration type.",
+      "Properties": [
+        {
+          "Name": "Name",
+          "Type": "String",
+          "IsRequired": true
+        }
+      ],
+      "Associations": [
+        {
+          "Name": "UnderlyingType"
+        }
+      ],
+      "Elements": [
+        {
+          "Name": "Elements",
+          "Types": [
+            "Annotation"
+          ]
+        }
+      ]
+    },
+    "EnumType": {
+      "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_EnumType",
+      "Doc": "An enumeration type defines a set of named values.",
+      "Properties": [
+        {
+          "Name": "Name",
+          "Type": "String",
+          "IsRequired": true
+        }
+      ],
+      "Associations": null,
+      "Elements": [
+        {
+          "Name": "Members",
+          "Types": [
+            "Member"
+          ]
+        }
+      ]
+    },
+    "Member": {
+      "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Member",
+      "Doc": "A member defines a named value of an enumeration type.",
+      "Properties": [
+        {
+          "Name": "Name",
+          "Type": "String",
+          "IsRequired": true
+        },
+        {
+          "Name": "Value",
+          "Type": "Int",
+          "IsRequired": false
+        }
+      ],
+      "Associations": null,
+      "Elements": null
+    },
+    "EntityType": {
+      "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_EntityType",
+      "Doc": "An entity type defines the structure of an entity.",
+      "Properties": [
+        {
+          "Name": "Name",
+          "Type": "String",
+          "IsRequired": true
+        }
+      ],
+      "Associations": [
+        {
+          "Name": "BaseType"
+        }
+      ],
+      "Elements": [
+        {
+          "Name": "Properties",
+          "Types": [
+            "Property",
+            "NavigationProperty",
+            "Annotation"
+          ]
+        },
+        {
+          "Name": "Key",
+          "Types": [
+            "PropertyRef"
+          ]
+        }
+      ]
+    },
+    "ComplexType": {
+      "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_ComplexType",
+      "Doc": "A complex type defines a structured value.",
+      "Properties": [
+        {
+          "Name": "Name",
+          "Type": "String",
+          "IsRequired": true
+        }
+      ],
+      "Associations": [
+        {
+          "Name": "BaseType"
+        }
+      ],
+      "Elements": [
+        {
+          "Name": "Properties",
+          "Types": [
+            "Property",
+            "NavigationProperty",
+            "Annotation"
+          ]
+        }
+      ]
+    },
+    "Property": {
+      "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Property",
+      "Doc": "A property defines a typed value that can be part of an entity or a complex type.",
+      "Properties": [
+        {
+          "Name": "Name",
+          "Type": "String",
+          "IsRequired": true
+        },
+        {
+          "Name": "Nullable",
+          "Type": "Bool",
+          "IsRequired": false
+        }
+      ],
+      "Associations": [
+        {
+          "Name": "Type"
+        }
+      ],
+      "Elements": [
+        {
+          "Name": "Annotations",
+          "Types": [
+            "Annotation"
+          ]
+        }
+      ]
+    },
+    "NavigationProperty": {
+      "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_NavigationProperty",
+      "Doc": "A navigation property defines a relationship between two entity types.",
+      "Properties": [
+        {
+          "Name": "Name",
+          "Type": "String",
+          "IsRequired": true
+        },
+        {
+          "Name": "ContainsTarget",
+          "Type": "Bool",
+          "IsRequired": false
+        }
+      ],
+      "Associations": [
+        {
+          "Name": "Type"
+        }
+      ],
+      "Elements": [
+        {
+          "Name": "Annotations",
+          "Types": [
+            "Annotation"
+          ]
+        }
+      ]
+    },
+    "PropertyRef": {
+      "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Key",
+      "Doc": "A property reference identifies a property that is part of the key of an entity type.",
+      "Properties": [
+        {
+          "Name": "Alias",
+          "Type": "String",
+          "IsRequired": true
+        }
+      ],
+      "Associations": [
+        {
+          "Name": "Name"
+        }
+      ],
+      "Elements": null
+    },
+    "NavigationPropertyBinding": {
+      "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_NavigationPropertyBinding",
+      "Doc": null,
+      "Properties": null,
+      "Associations": null,
+      "Elements": null
+    },
+    "PrimitiveType": {
+      "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#_Toc486522885",
+      "Doc": "Primitive types define the built-in data types supported by OData.",
+      "Properties": [
+        {
+          "Name": "Name",
+          "Type": "String",
+          "IsRequired": true
+        }
+      ],
+      "Associations": null,
+      "Elements": [
+        {
+          "Name": "Annotations",
+          "Types": [
+            "Annotation"
+          ]
+        }
+      ]
+    },
+    "Term": {
+      "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html#_Toc38530405",
+      "Doc": "Terms define reusable vocabulary for annotating elements in an entity model.",
+      "Properties": [
+        {
+          "Name": "Name",
+          "Type": "String",
+          "IsRequired": true
+        },
+        {
+          "Name": "Nullable",
+          "Type": "Bool",
+          "IsRequired": false
+        },
+        {
+          "Name": "DefaultValue",
+          "Type": "String",
+          "IsRequired": false
+        },
+        {
+          "Name": "AppliesTo",
+          "Type": "String",
+          "IsRequired": false
+        }
+      ],
+      "Associations": [
+        {
+          "Name": "Type"
+        },
+        {
+          "Name": "BaseTerm"
+        }
+      ],
+      "Elements": [
+        {
+          "Name": "Annotations",
+          "Types": [
+            "Annotation"
+          ]
+        }
+      ]
+    },
+    "Annotation": {
+      "Url": "https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html#_Toc38530405",
+      "Doc": "Annotations provide additional information about elements in an entity model.",
+      "Properties": [
+        {
+          "Name": "Qualifier",
+          "Type": "String",
+          "IsRequired": false
+        }
+      ],
+      "Associations": [
+        {
+          "Name": "Term"
+        }
+      ],
+      "Elements": null
+    }
+  }
+}

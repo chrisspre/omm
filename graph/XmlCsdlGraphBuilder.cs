@@ -109,10 +109,7 @@ internal record XmlCsdlGraphBuilder(LabeledPropertyGraphSchema Schema)
             System.Console.WriteLine($"can't process {xml.Name.LocalName}, expected {string.Join(", ", Names)}");
         }
 
-        var (properties, associations, elements) = Schema[xml.Name.LocalName];
-        // Property[] properties = def.Properties ?? [];
-        // Association[] associations = def.Associations ?? [];
-        // Element[] elements = def.Elements ?? [];
+        var (_, properties, associations, elements) = Schema[xml.Name.LocalName];
 
         var primitivesAndReferences = properties.Concat(associations.Select(r => new Property(r.Name, PropertyType.Path, true)));
         var props = (
@@ -152,7 +149,7 @@ internal record XmlCsdlGraphBuilder(LabeledPropertyGraphSchema Schema)
             System.Console.WriteLine(@"unused xml attribute {0} of xml element {1} {2}", unused.Name.LocalName, xml.Name.LocalName, li);
         }
 
-        var allowed = (elements.Select(c => c.TypeAlternatives).FirstOrDefault() ?? []).Concat((elements ?? []).Skip(1).Select(c => c.Name));
+        var allowed = (elements.Select(c => c.Types).FirstOrDefault() ?? []).Concat((elements ?? []).Skip(1).Select(c => c.Name));
         foreach (var unused in xml.Elements().Where(e => !allowed.Contains(e.Name.LocalName)))
         {
             var li = new LineInfo(filePath, unused);

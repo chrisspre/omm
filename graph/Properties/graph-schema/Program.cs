@@ -1,4 +1,10 @@
 ﻿namespace Csdl.Graph;
+
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 using CommandLine;
 
 internal class Program
@@ -6,8 +12,8 @@ internal class Program
     private static void Main(string[] args)
     {
         Parser.Default
-            .ParseArguments<Options>(args)
-            .WithParsed<Options>(o =>
+            .ParseArguments<ProgramOptions>(args)
+            .WithParsed<ProgramOptions>(o =>
             {
                 var outputFile = o.OutputFile?.FullName ?? Path.ChangeExtension(o.InputFile.FullName, ".md");
                 Run(o.InputFile.FullName, outputFile);
@@ -16,104 +22,38 @@ internal class Program
 
     private static void Run(string inputFile, string outputFile)
     {
+        var schema = LabeledPropertyGraphSchema.Default;
         var iDir = Path.GetDirectoryName(inputFile)!;
         var oDir = Path.GetDirectoryName(outputFile)!;
-        File.WriteAllText(Path.Combine(oDir, "meta-model-schema.md"), SCHEMA.ToString());
+        File.WriteAllText(Path.Combine(oDir, "meta-model-schema.md"), schema.ToString());
 
-        var graph = Graph.LoadGraph(SCHEMA, inputFile);
+        using (var stream = File.Create(Path.Combine(oDir, "meta-model-schema.json")))
+        {
+            JsonSerializer.Serialize(stream, schema, SerializeOnlyLabeledPropertyGraphSchemOnlyContext.Default.LabeledPropertyGraphSchema);
+        }
+
+        var graph = Graph.LoadGraph(schema, inputFile);
 
         graph.WriteTo(outputFile);
     }
 
-    private static readonly LabeledPropertyGraphSchema SCHEMA = new()
-    {
-        ["Schema"] = new NodeDef
-        {
-            Properties = ["Namespace", "Alias"],
-            Elements = [("Elements", ["EnumType", "EntityType", "ComplexType", "PrimitiveType", "TypeDefinition", "Term"])]
-        },
-
-        ["TypeDefinition"] = new NodeDef
-        {
-            Properties = ["Name"],
-            Associations = [new Reference("UnderlyingType", ["PrimitiveType"])],
-            Elements = [("Elements", ["Annotation"])]
-        },
-        ["EnumType"] = new NodeDef
-        {
-            Properties = ["Name"],
-            Elements = [("Members", ["Member"])]
-        },
-        ["Member"] = new NodeDef
-        {
-            Properties = ["Name", ("Value", PropertyType.Int, true)],
-        },
-        ["EntityType"] = new NodeDef
-        {
-            Properties = ["Name"],
-            Associations = [new Reference("BaseType", null, ["EntityType"])],
-            Elements = [("Properties", ["Property", "NavigationProperty", "Annotation"]), ("Key", ["PropertyRef"])]
-        },
-        ["ComplexType"] = new NodeDef
-        {
-            Properties = ["Name"],
-            Associations = [new Reference("BaseType", ["ComplexType"])],
-            Elements = [("Properties", ["Property", "NavigationProperty", "Annotation"])]
-        },
-        ["Property"] = new NodeDef
-        {
-            Properties = ["Name", ("Nullable", PropertyType.Bool, false)],
-            Associations = [new Reference("Type", ["ComplexType", "EnumType", "PrimitiveType"])],
-            Elements = [("Annotations", ["Annotation"])],
-        },
-        ["NavigationProperty"] = new NodeDef
-        {
-            Properties = ["Name", ("ContainsTarget", PropertyType.Bool, false)],
-            Associations = [new Reference("Type", ["EntityType"])],
-            Elements = [("Annotations", ["Annotation"])],
-        },
-        // https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_Key
-        ["PropertyRef"] = new NodeDef
-        {
-            Properties = ["Alias"],
-            Associations = [
-            // The value of Name is a path expression leading to a primitive property. The names of the properties in the path are joined together by forward slashes.
-            new PathReference("Name", 1, ["NavigationProperty", "Property"])
-        ],
-        },
-        // https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/csprd02/odata-csdl-xml-v4.01-csprd02.html#sec_NavigationPropertyBinding
-        ["NavigationPropertyBinding"] = new NodeDef
-        {
-            // The value of Path is a path expression.
-            // The value of Target is a target path.
-        },
-
-        ["PrimitiveType"] = new NodeDef
-        {
-            Properties = ["Name"],
-            Elements = [("Annotations", ["Annotation"])],
-        },
-        ["Term"] = new NodeDef
-        {
-            Properties = [
-                ("Name", PropertyType.String, true),
-                ("Nullable", PropertyType.Bool, false),
-                 ("DefaultValue", PropertyType.String,false),
-                 ("AppliesTo", PropertyType.String, false)
-            ],
-            Associations = [new Reference("Type", ["ComplexType", "EnumType", "PrimitiveType"]), new Reference("BaseTerm", ["Term"])],
-            Elements = [("Annotations", ["Annotation"])],
-        },
-        // https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html#_Toc38530405
-        ["Annotation"] = new NodeDef
-        {
-            Properties = [("Qualifier", PropertyType.String, false)],
-            Associations = [new Reference("Term", ["Term"])],
-        },
-    };
 }
 
-public class Options
+
+[JsonSourceGenerationOptions(WriteIndented = true, UseStringEnumConverter = true)]
+[JsonSerializable(typeof(LabeledPropertyGraphSchema))]
+[JsonSerializable(typeof(NodeDef))]
+[JsonSerializable(typeof(Element))]
+[JsonSerializable(typeof(Property))]
+[JsonSerializable(typeof(Association))]
+[JsonSerializable(typeof(Reference))]
+[JsonSerializable(typeof(PathReference))]
+internal partial class SerializeOnlyLabeledPropertyGraphSchemOnlyContext : JsonSerializerContext
+{
+}
+
+
+public class ProgramOptions
 {
     [Option('v', "verbose", Required = false, HelpText = "Set output to verbose messages.")]
     public bool Verbose { get; init; }
