@@ -10,13 +10,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Using Include="System.Collections" />
-    <Using Include="System.Collections.Immutable" />
-    <Using Include="System.Diagnostics.CodeAnalysis" />
-    <Using Include="System.Text" />
-    <Using Include="System.Text.RegularExpressions" />
+
+    <Using Include="System" />
     <Using Include="System.Xml" />
     <Using Include="System.Xml.Linq" />
+    <Using Include="System.Text" />
+    <Using Include="System.Text.RegularExpressions" />
+    <Using Include="System.Text.Json" />
+    <Using Include="System.Text.Json.Serialization" />
+    <Using Include="System.Text.Json.Serialization.Metadata" />
+    <Using Include="System.Diagnostics.CodeAnalysis" />
+    <Using Include="System.Collections" />
+    <Using Include="System.Collections.Immutable" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,4 +33,6 @@
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
   </ItemGroup>
-</Project>
+
+
+</Project> 

@@ -1,11 +1,10 @@
 
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks.Dataflow;
-
 namespace omm;
 
-public partial class LabeledPropertyGraphSchema // : IEnumerable
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
+public partial class LabeledPropertyGraphSchema
 {
     public static readonly LabeledPropertyGraphSchema Default = new()
     {
@@ -142,9 +141,6 @@ public partial class LabeledPropertyGraphSchema // : IEnumerable
         set => Definitions[key] = value;
     }
 
-    // IEnumerator IEnumerable.GetEnumerator() =>
-    //     Definitions.GetEnumerator();
-
     public void Display(TextWriter w)
     {
         w.WriteLine("# CSDL meta model");
@@ -247,13 +243,14 @@ public partial class LabeledPropertyGraphSchema // : IEnumerable
         JsonSerializer.Serialize(stream, this, SerializeOnlyLabeledPropertyGraphSchemOnlyContext.Default.LabeledPropertyGraphSchema);
     }
 
-    [JsonSourceGenerationOptions(WriteIndented = true, UseStringEnumConverter = true, DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull)]
-    [JsonSerializable(typeof(LabeledPropertyGraphSchema))]
-    [JsonSerializable(typeof(NodeDef))]
-    [JsonSerializable(typeof(Element))]
-    [JsonSerializable(typeof(Property))]
-    [JsonDerivedType(typeof(Association))]
-    internal partial class SerializeOnlyLabeledPropertyGraphSchemOnlyContext : JsonSerializerContext
-    {
-    }
 }
+[JsonSourceGenerationOptions(WriteIndented = true, UseStringEnumConverter = true, DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull)]
+[JsonSerializable(typeof(LabeledPropertyGraphSchema))]
+[JsonSerializable(typeof(NodeDef))]
+[JsonSerializable(typeof(Element))]
+[JsonSerializable(typeof(Property))]
+[JsonDerivedType(typeof(Association))]
+internal partial class SerializeOnlyLabeledPropertyGraphSchemOnlyContext : JsonSerializerContext
+{
+}
+

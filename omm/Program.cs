@@ -1,10 +1,5 @@
 ﻿namespace omm;
 
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Text.Json.Serialization.Metadata;
 using CommandLine;
 
 internal class Program
@@ -25,7 +20,6 @@ internal class Program
         var schema = LabeledPropertyGraphSchema.Default;
         var outputDir = Path.GetDirectoryName(outputFile)!;
         File.WriteAllText(Path.Combine(outputDir, "meta-model-schema.md"), schema.ToString());
-
         schema.JsonSerialize(Path.Combine(outputDir, "meta-model-schema.json"));
 
         var graph = Graph.LoadGraph(schema, inputFile);
