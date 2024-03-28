@@ -36,6 +36,11 @@ n31[Category: EntityType]
 n32[`unnamed unknwon Property`: Property]
 n33[`unnamed unknwon Property`: Property]
 n34[@Core.Description: Annotation]
+n35[Core: Schema]
+n36[`unnamed unknwon Term`: Term]
+n37[`unnamed unknwon Term`: Term]
+n38[`unnamed unknwon TypeDefinition`: TypeDefinition]
+n39[`unnamed unknwon Term`: Term]
 n1-->n2
 n1-->n3
 n1-->n4
@@ -72,4 +77,11 @@ n31-->n33
 n31-->n34
 n32-. Type .-> n15
 n33-. Type .-> n15
+n35-->n36
+n35-->n37
+n35-->n38
+n35-->n39
+n36-. Type .-> n15
+n38-. UnderlyingType .-> n3
+n39-. Type .-> n15
 ```

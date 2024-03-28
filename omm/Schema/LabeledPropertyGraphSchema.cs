@@ -1,10 +1,11 @@
 
-namespace omm;
-
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-public partial class LabeledPropertyGraphSchema
+namespace omm;
+
+
+public partial class LabeledPropertyGraphSchema()
 {
     public static readonly LabeledPropertyGraphSchema Default = new()
     {
@@ -131,10 +132,6 @@ public partial class LabeledPropertyGraphSchema
 
     public Dictionary<String, NodeDef> Definitions { get; } = [];
 
-    public LabeledPropertyGraphSchema()
-    {
-    }
-
     public NodeDef this[string key]
     {
         get => Definitions[key];
@@ -232,18 +229,24 @@ public partial class LabeledPropertyGraphSchema
         return writer.ToString();
     }
 
-    internal void JsonSerialize(FileStream stream)
+    public void JsonSerialize(FileStream stream)
     {
         JsonSerializer.Serialize(stream, this, SerializeOnlyLabeledPropertyGraphSchemOnlyContext.Default.LabeledPropertyGraphSchema);
     }
 
-    internal void JsonSerialize(string path)
+    public void JsonSerialize(string path)
     {
         using var stream = File.Create(path);
         JsonSerializer.Serialize(stream, this, SerializeOnlyLabeledPropertyGraphSchemOnlyContext.Default.LabeledPropertyGraphSchema);
     }
 
+    public void MarkdownSerialize(string path)
+    {
+        using var text = File.CreateText(path);
+        this.Display(text);
+    }
 }
+
 [JsonSourceGenerationOptions(WriteIndented = true, UseStringEnumConverter = true, DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull)]
 [JsonSerializable(typeof(LabeledPropertyGraphSchema))]
 [JsonSerializable(typeof(NodeDef))]

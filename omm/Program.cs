@@ -19,15 +19,14 @@ internal class Program
     {
         var schema = LabeledPropertyGraphSchema.Default;
         var outputDir = Path.GetDirectoryName(outputFile)!;
-        File.WriteAllText(Path.Combine(outputDir, "meta-model-schema.md"), schema.ToString());
+        schema.MarkdownSerialize(Path.Combine(outputDir, "meta-model-schema.md"));
         schema.JsonSerialize(Path.Combine(outputDir, "meta-model-schema.json"));
 
-        var graph = Graph.LoadGraph(schema, inputFile);
 
+        var graph = Graph.LoadGraph(schema, inputFile, Path.Combine(outputDir, "core.xml"));
         graph.WriteTo(outputFile);
     }
 }
-
 
 
 public class ProgramOptions
