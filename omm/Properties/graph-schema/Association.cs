@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Csdl.Graph;
+namespace omm;
 
 /// <summary>
 /// Represents an association in a labeled property graph schema.

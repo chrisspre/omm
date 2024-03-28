@@ -1,4 +1,4 @@
-namespace Csdl.Graph;
+namespace omm;
 
 public sealed class Graph()
 {

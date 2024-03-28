@@ -1,4 +1,4 @@
-namespace Csdl.Graph;
+namespace omm;
 
 static class StringExtensions
 {

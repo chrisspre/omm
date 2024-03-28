@@ -1,5 +1,5 @@
 
-namespace Csdl.Graph;
+namespace omm;
 
 public partial record struct NodeDef(string Url, string Description, Property[] Properties, Association[] Associations, Element[] Elements)
 {

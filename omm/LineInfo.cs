@@ -1,4 +1,4 @@
-namespace Csdl.Graph;
+namespace omm;
 
 internal record struct LineInfo(string Path, int LineNumber, int LinePosition)
 {

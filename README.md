@@ -1,4 +1,4 @@
-# CSDL Graph
+# OData Meta Model (omm)
 
 [![build and test](https://github.com/xtofs/csdl-graph/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/xtofs/csdl-graph/actions/workflows/build-and-test.yml)
 

@@ -1,5 +1,5 @@
 
-namespace Csdl.Graph;
+namespace omm;
 
 public partial record Property(string Name, PropertyType Type, bool IsRequired)
 {

@@ -1,5 +1,5 @@
 
-namespace Csdl.Graph;
+namespace omm;
 
 public enum PropertyType
 {

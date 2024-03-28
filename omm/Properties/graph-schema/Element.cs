@@ -1,5 +1,5 @@
 
-namespace Csdl.Graph;
+namespace omm;
 
 /// <summary>
 /// Represents a (child, owned) element in a labeled property graph schema.

@@ -3,7 +3,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks.Dataflow;
 
-namespace Csdl.Graph;
+namespace omm;
 
 public partial class LabeledPropertyGraphSchema // : IEnumerable
 {

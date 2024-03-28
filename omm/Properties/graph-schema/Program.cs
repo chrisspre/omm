@@ -1,4 +1,4 @@
-﻿namespace Csdl.Graph;
+﻿namespace omm;
 
 using System;
 using System.Diagnostics.CodeAnalysis;

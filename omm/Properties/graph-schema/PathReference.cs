@@ -1,5 +1,5 @@
 
-namespace Csdl.Graph;
+namespace omm;
 
 public sealed partial record PathReference(string Name, int? RelativeTo, string[] Types) : Association(Name)
 {

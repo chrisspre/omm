@@ -1,5 +1,5 @@
 
-namespace Csdl.Graph;
+namespace omm;
 
 /// <summary>
 /// Represents a reference in the graph schema.
