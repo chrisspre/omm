@@ -1,5 +1,4 @@
 ﻿namespace omm;
-
 using CommandLine;
 
 internal class Program

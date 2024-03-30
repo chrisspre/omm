@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "omm", "omm\omm.csproj", "{3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "omm.tests", "omm.tests\omm.tests.csproj", "{E48F46A3-000C-4D9C-A87D-77BC24D6729A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "play", "play\play.csproj", "{B9FA0F55-009F-4EB2-B135-F6DFE8516CBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{E48F46A3-000C-4D9C-A87D-77BC24D6729A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E48F46A3-000C-4D9C-A87D-77BC24D6729A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E48F46A3-000C-4D9C-A87D-77BC24D6729A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9FA0F55-009F-4EB2-B135-F6DFE8516CBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9FA0F55-009F-4EB2-B135-F6DFE8516CBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9FA0F55-009F-4EB2-B135-F6DFE8516CBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9FA0F55-009F-4EB2-B135-F6DFE8516CBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
