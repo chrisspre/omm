@@ -2,22 +2,16 @@ using System.Diagnostics;
 
 namespace play;
 
+interface ISegmentKind;
 
+record N : ISegmentKind;
+record E : ISegmentKind;
 
+interface ISegment<T> where T : ISegmentKind { };
 
-// interface IEnd { }
+record Node(string Var, string Label) : ISegment<N>;
 
-// interface ISingleton<T> where T : ISingleton<T> { public abstract static T Instance { get; } }
-
-// class Tail : IEnd, ISingleton<Tail> { private Tail() { } public static Tail Instance { get; } = new(); }
-
-// class Tip : IEnd { private Tip() { } public static Tip Instance { get; } = new(); }
-
-interface ISegment { };
-
-record Node(string Var, string Label) : ISegment;
-
-record Edge(string Label) : ISegment;
+record Edge(string Label) : ISegment<E>;
 
 class Repetition(Range range, ISegment[] even, ISegment[] odd) : ISegment
 {
